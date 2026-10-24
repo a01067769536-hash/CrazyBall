@@ -48,10 +48,10 @@ namespace Crazyball.CourseKit.Obstacles
             coinChance = Mathf.Clamp01(0.35f + coinBonus);
             timer = 0.2f;
 
-            if (stage == 3)
-                SpawnEncounter(EncounterType.MidBoss, 14);
-            else if (stage == 5)
-                SpawnEncounter(EncounterType.Boss, 28);
+            if (stage == 3 || stage==7)
+                SpawnEncounter(EncounterType.MidBoss, 14+ stage + 3);
+            else if (stage == 5 || stage== 10)
+                SpawnEncounter(EncounterType.Boss, 28 + stage + 5);
         }
 
         public void SetSpawning(bool enabled)
@@ -77,7 +77,7 @@ namespace Crazyball.CourseKit.Obstacles
 
         private void SpawnEncounter(EncounterType type, int health)
         {
-            GameObject target = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            GameObject target = type == EncounterType.MidBoss ? GameObject.CreatePrimitive(PrimitiveType.Cube) : GameObject.CreatePrimitive(PrimitiveType.Sphere);
             target.name = type == EncounterType.MidBoss ? "Mid Boss - Breakwall" : "Boss - Core Overlord";
             target.transform.position = new Vector3(0f, .55f, type == EncounterType.MidBoss ? 8f : 8.6f);
             target.transform.localScale = type == EncounterType.MidBoss
